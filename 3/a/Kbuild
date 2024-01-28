@@ -1,4 +1,4 @@
 
 EXTRA_CFLAGS = -Wall -g
 
-obj-m        = lkm4.o
+obj-m        = hello_procfs.o

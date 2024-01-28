@@ -3,19 +3,25 @@
 #include <linux/proc_fs.h>
 #include <linux/slab.h>
 #include <linux/string.h>
+#include <linux/mm.h>
+
 
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Dhruv K");
 MODULE_DESCRIPTION("Simple module featuring proc read");
 
-#define ENTRY_NAME "hello_world"
+#define ENTRY_NAME "get_pgfaults"
 #define PERMS 0644
 #define PARENT NULL
 
 static struct proc_ops fops;
 static char *message;
 static int read_p;
+unsigned long kv[NR_VM_EVENT_ITEMS];
+unsigned long pgfaults;
+char buffer [40];
+
 
 int hello_proc_open(struct inode *sp_inode, struct file *sp_file) {
     printk("proc called open\n");
@@ -26,7 +32,13 @@ int hello_proc_open(struct inode *sp_inode, struct file *sp_file) {
         printk("ERROR, hello_proc_open");
         return -ENOMEM;
     }
-    strcpy(message, "Hello, World!\n");
+
+    all_vm_events(kv);
+    pgfaults = kv[PGFAULT];
+    memset(buffer,0,sizeof(buffer));
+    sprintf(buffer,"Page Faults - %lu",pgfaults);
+    printk("msg - %s\n",buffer);
+    strcpy(message, buffer);
     return 0;
 }
 
