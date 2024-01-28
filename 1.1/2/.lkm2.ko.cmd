@@ -1,0 +1,1 @@
+cmd_/home/cs695/1.1/2/lkm2.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T arch/x86/module.lds -o /home/cs695/1.1/2/lkm2.ko /home/cs695/1.1/2/lkm2.o /home/cs695/1.1/2/lkm2.mod.o;  true

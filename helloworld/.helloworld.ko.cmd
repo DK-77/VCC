@@ -1,0 +1,1 @@
+cmd_/home/cs695/helloworld/helloworld.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T arch/x86/module.lds -o /home/cs695/helloworld/helloworld.ko /home/cs695/helloworld/helloworld.o /home/cs695/helloworld/helloworld.mod.o;  true
